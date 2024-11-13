@@ -17,7 +17,7 @@ st.set_page_config(
 
 # Add title and subtitle
 st.header("Filter by Company")
-st.write("This Scatterplot plots warehouse locations of the selected companies")
+st.write("This Scatterplot plots facilities of the selected companies")
 
 # Add Multiselect box 
 companies = st.multiselect(
@@ -39,7 +39,7 @@ with col1:
     st.metric(label="Selected Companies", value=len(selected_df.company.unique()))
 with col2:    
     # Card for Number of Warehouses
-    st.metric(label="Warehouses", value=len(selected_df))
+    st.metric(label="Facilities", value=len(selected_df))
 with col3:    
     # Card for Number of States
     st.metric(label="States", value=len(selected_df.state.unique()))
@@ -48,15 +48,15 @@ with col3:
 col5, col6, col7 = st.columns([2, 1, 1], gap="small")
 with col5:
     # Card for the Company with most warehouses
-    st.metric(label='Company with most warehouses', value=selected_df.company.value_counts().index[1])
+    st.metric(label='Company with most Facilities', value=selected_df.company.value_counts().index[1])
 
 with col6:
     # Card for the State with most warehouses
-    st.metric(label="State with most warehouses", value=selected_df.state.value_counts().index[0])
+    st.metric(label="State with most Facilities", value=selected_df.state.value_counts().index[0])
 
 with col7:
     # Card for the State with the least warehouses
-    st.metric(label="State with least warehouses", value=selected_df.state.value_counts().index[-1])
+    st.metric(label="State with least Facilities", value=selected_df.state.value_counts().index[-1])
 
 
 

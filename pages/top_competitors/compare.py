@@ -15,7 +15,7 @@ st.set_page_config(
 col1, col2 = st.columns([1, 4], vertical_alignment="top", gap="large")
 
 st.header("Compare Companies")
-st.write("This Scatterplot allows you to compare warehouse locations of different companies with that of Altor Solutions")
+st.write("This Scatterplot allows you to compare facilities of different companies with that of Altor Solutions")
 
 # Drop Altor Solutions from the company list
 company_list = df.company.unique().tolist()
@@ -38,11 +38,11 @@ col3, col4 = st.columns(2, vertical_alignment="top", gap="large")
 with col3:
     st.subheader("Altor Solutions")
     # Altor Solutions Card
-    st.metric(label="Altor Solutions", value=len(df.query("company == 'Altor Solutions'")))
-    st.metric(label="Altor Solutions States", value=len(df.query("company == 'Altor Solutions'").state.unique()))
+    st.metric(label="Facilities", value=len(df.query("company == 'Altor Solutions'")))
+    st.metric(label="States", value=len(df.query("company == 'Altor Solutions'").state.unique()))
 
 with col4:
     st.subheader(company)
     # Company Card
-    st.metric(label=company, value=len(df.query(f"company == '{company}'")))
-    st.metric(label=f"{company} States", value=len(df.query(f"company == '{company}'").state.unique()))
+    st.metric(label="Facilities", value=len(df.query(f"company == '{company}'")))
+    st.metric(label=f"States", value=len(df.query(f"company == '{company}'").state.unique()))

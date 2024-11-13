@@ -23,25 +23,25 @@ df = pd.read_csv("datasets/companies_locations.csv")
 
 # Add title and subtitle
 st.header("All Companies")
-st.write("This Scatterplot plots warehouse locations of all companies, including Altor Solutions")
+st.write("This Scatterplot plots facilities of all companies, including Altor Solutions")
 
 # Add chart
 with chart_container(df):
     folium_static(create_map(df=df), width=1280, height=600)
 
 # Create metrics
-col1, col2, col3, col4 = st.columns([1,1,1,3], vertical_alignment="top", gap="large")
+col1, col2, col3, col4 = st.columns([1,1,1], vertical_alignment="top", gap="small")
 with col1:
     st.metric(label="Companies", value=len(df.company.unique()))
 with col2:
-    st.metric(label="Warehouses", value=len(df))
+    st.metric(label="Facilities", value=len(df))
 with col3:    
     st.metric(label="States", value=len(df.state.unique()))
 
-col5, col6, col7 = st.columns([2, 1, 1], vertical_alignment="top", gap="large")
+col5, col6, col7 = st.columns([2, 1, 1], vertical_alignment="top", gap="small")
 with col5:
-    st.metric(label="Company with most warehouses", value=df.company.value_counts().index[1])
+    st.metric(label="Company with most Facilities", value=df.company.value_counts().index[0])
 with col6:
-    st.metric(label="State with most warehouses", value=df.state.value_counts().index[0])
+    st.metric(label="State with most Facilities", value=df.state.value_counts().index[0])
 with col7:
-    st.metric(label="State with least warehouses", value=df.state.value_counts().index[-1])
+    st.metric(label="State with least Facilities", value=df.state.value_counts().index[-1])
