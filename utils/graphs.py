@@ -12,10 +12,35 @@ def fig_update_layout(fig):
             style='open-street-map',
             zoom=3,
             center=dict(lon=df['longitude'].mean(), lat=df['latitude'].mean())
-        ),
-        
+        )
     )
+    
     return fig
+
+
+def individual_scattergeo(selected_company):
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scattermapbox(
+            mode="markers",
+            lat=df.query(f"company == '{selected_company}'")["latitude"],
+            lon=df.query(f"company == '{selected_company}'")["longitude"],
+            text=df.query(f"company == '{selected_company}'")["text"],
+            name=selected_company,
+            opacity=0.8,
+            marker=dict(
+                # symbol="marker",
+                size=15,
+                color=df.query(f"company == '{selected_company}'")["color"]
+            )
+        )
+    )
+
+    
+
+    return fig_update_layout(fig=fig)
+
 
 """
 Returns a scattergeo figure of all companies' warehouse locations 
@@ -102,23 +127,4 @@ def compare_scattergeo(selected_company):
     
 
 
-def individual_scattergeo(selected_company):
-    fig = go.Figure()
-
-    fig.add_trace(go.Scattermapbox(
-        mode="markers",
-        lat=df.query(f"company == '{selected_company}'")["latitude"],
-        lon=df.query(f"company == '{selected_company}'")["longitude"],
-        text=df.query(f"company == '{selected_company}'")["text"],
-        name=selected_company,
-        opacity=0.8,
-        marker=dict(
-            # symbol="marker",
-            size=15,
-            color=df.query(f"company == '{selected_company}'")["color"]
-        )
-    )
-    )
-
-    return fig_update_layout(fig=fig)
     

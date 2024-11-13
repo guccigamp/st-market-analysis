@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
-from utils.graphs import filter_by_company_scattergeo
+from utils.ind_graphs import create_map
 from streamlit_extras.chart_container import chart_container
+from streamlit_folium import folium_static
+
 
 
 df = pd.read_csv("datasets/companies_locations.csv")
@@ -12,39 +14,38 @@ st.set_page_config(
     layout="wide",
     page_icon="assets/ALTOR white.png"
 )
-#
-col1, col2 = st.columns([1, 4], vertical_alignment="top", gap="large")
 
+# Add title and subtitle
+st.header("Filter by Company")
+st.write("This Scatterplot plots warehouse locations of the selected companies")
 
-with col2:
-    companies = st.multiselect(
-        label="Select Companies",
-        options=df.company.unique(),
-        default=df.company.unique()[:5],
-        placeholder="Choose a Company",
-        help="You can select multiple companies. Maximum 10 companies can be selected",
-        max_selections=10
-    )
-    selected_df = df.query(f"company in {companies}")
-    if companies:
-        with chart_container(selected_df):
-            st.plotly_chart(filter_by_company_scattergeo(companies))
+# Add Multiselect box 
+companies = st.multiselect(
+    label="Select Companies",
+    options=df.company.unique(),
+    default=df.company.unique()[:5],
+    placeholder="Choose a Company",
+    help="You can select multiple companies. Maximum 10 companies can be selected",
+    max_selections=10
+)
+selected_df = df.query(f"company in {companies}")
+if companies:
+    with chart_container(selected_df):
+        folium_static(create_map(selected_df), height=600, width=1280)
 
-
-
+col1, col2, col3 = st.columns(3)
 with col1:
-    st.header("Filter by Company")
-    st.write("This Scatterplot plots warehouse locations of the selected companies")
-    st.markdown("___")
     # Card for Number of Companies
     st.metric(label="Selected Companies", value=len(selected_df.company.unique()))
+with col2:    
     # Card for Number of Warehouses
     st.metric(label="Warehouses", value=len(selected_df))
+with col3:    
     # Card for Number of States
     st.metric(label="States", value=len(selected_df.state.unique()))
-    st.markdown("___")
 
-col5, col6, col7 = st.columns([2, 1, 1], vertical_alignment="top", gap="large")
+
+col5, col6, col7 = st.columns([2, 1, 1], gap="small")
 with col5:
     # Card for the Company with most warehouses
     st.metric(label='Company with most warehouses', value=selected_df.company.value_counts().index[1])
