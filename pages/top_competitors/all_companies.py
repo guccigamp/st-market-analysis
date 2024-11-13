@@ -30,7 +30,7 @@ with chart_container(df):
     folium_static(create_map(df=df), width=1280, height=600)
 
 # Create metrics
-col1, col2, col3, col4 = st.columns([1,1,1], vertical_alignment="top", gap="small")
+col1, col2, col3 = st.columns([1,1,1], vertical_alignment="top", gap="small")
 with col1:
     st.metric(label="Companies", value=len(df.company.unique()))
 with col2:
