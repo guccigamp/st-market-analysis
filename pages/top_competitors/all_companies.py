@@ -13,22 +13,27 @@ st.set_page_config(
     page_icon="assets/ALTOR white.png"
 )
 
-# Add title and chart
-col1, col2 = st.columns([1, 4], vertical_alignment="top", gap="large")
+# Add title and subtitle
+st.header("All Companies")
+st.write("This Scatterplot plots warehouse locations of all companies, including Altor Solutions")
+
+# Add chart
+with chart_container(df):
+        # Display the map
+        st.plotly_chart(all_companies_scattergeo())
+
+col1, col2, col3, col4 = st.columns([1,1,1,3], vertical_alignment="top", gap="large")
 with col1:
-    st.header("All Companies")
-    st.write("This Scatterplot plots warehouse locations of all companies, including Altor Solutions")
     # Card for Number of Companies
     st.metric(label="Companies", value=len(df.company.unique()))
+with col2:
     # Card for Number of Warehouses
     st.metric(label="Warehouses", value=len(df))
+with col3:    
     # Card for Number of States
     st.metric(label="States", value=len(df.state.unique()))
 
-with col2:
-    with chart_container(df[["company", "location", 'latitude', 'longitude']]):
-        # Display the map
-        st.plotly_chart(all_companies_scattergeo())
+    
 
 col5, col6, col7 = st.columns([2, 1, 1], vertical_alignment="top", gap="large")
 

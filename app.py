@@ -5,7 +5,8 @@ st.logo("assets/ALTOR white.png", size="large", icon_image="assets/ALTOR white.p
 
 pages = {
     "Market Analysis": [
-        st.Page("pages/top_competitors/all_companies.py", title="All Companies"),
+        st.Page("pages/top_competitors/individual.py", title="Company's Facilities"),
+        st.Page("pages/top_competitors/all_companies.py", title="All Companies Facilities"),
         st.Page("pages/top_competitors/filter.py", title="Filter by Company"),
         st.Page("pages/top_competitors/compare.py", title="Compare Companies"),
     ],

@@ -27,7 +27,7 @@ with col2:
     )
     selected_df = df.query(f"company in {companies}")
     if companies:
-        with chart_container(selected_df[["company", "location", 'latitude', 'longitude']]):
+        with chart_container(selected_df):
             st.plotly_chart(filter_by_company_scattergeo(companies))
 
 

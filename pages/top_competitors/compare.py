@@ -32,7 +32,7 @@ with col1:
     company_df = df.query(f"company == '{company}'")
 
 with col2:
-    with chart_container(company_df[["company", "location", 'latitude', 'longitude']]):
+    with chart_container(company_df):
         # Display the map
         st.plotly_chart(compare_scattergeo(company))
 
